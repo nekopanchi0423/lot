@@ -1,0 +1,37 @@
+.wrapper {
+    margin: 50px 10%;
+    text-align: left;
+  }
+  
+  .area {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  h2 {
+    display: inline-block;
+    font-weight: bold;
+  }
+  
+  #member {
+    margin: 5px auto 20px;
+  }
+  
+  #member label {
+    display: inline-block;
+  }
+  
+  #honsuu {
+    margin: 0 auto 20px;
+  }
+  
+  .button {
+    border-bottom: solid 1px #000;
+    padding: 0 0 20px;
+    margin: 0 auto 50px
+  }
+  
+  #result h3 {
+    font-size: 18px;
+    font-weight: bold;
+  }

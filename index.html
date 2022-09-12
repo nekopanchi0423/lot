@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>くじ引き</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="./jquery-3.6.1.min.js"></script>
+    <script>
+
+    var minCount = 1;
+    var maxCount = 6;
+
+    $(function(){
+        $('#demo-plus').on('click', function(){
+            var inputCount = $('#demo-area .unit').length;
+            if (inputCount < maxCount){
+                var element = $('#demo-area .unit:last-child').clone(true);
+                var inputList = element[0].querySelectorAll('input[type="text"]');
+                for (var i = 0; i < inputList.length; i++) {
+                inputList[i].value = "";
+                }
+                $('#demo-area .unit').parent().append(element);
+            }
+        });
+        $('.demo-minus').on('click', function(){
+            var inputCount = $('#demo-area .unit').length;
+            if (inputCount > minCount){
+                $(this).parents('.unit').remove();
+            }
+        });
+    });
+    </script>
+</head>
+
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-12 mt-5">
+          <div class="card">
+            <div class="card-header">
+              <span class="mb-2">参加メンバーを追加しよう！</span>
+            </div>
+            <div class="card-body">
+  
+  <div id="demo-area" class="form-group">
+    <div class="unit input-group mb-2">
+      <div class="input-group-prepend">
+        <span class="input-group-text">TEST</span>
+      </div>
+      <input name="test[]" type="text">
+      <div class="demo-minus input-group-append">
+        <span class="btn btn-danger">-</span>
+      </div>
+    </div>
+  </div>
+  
+  <div id="demo-plus" class="btn btn-primary">+</div>
+  
+  
+           </div>
+         </div>    
+       </div>
+    </div>
+  </div>
+  </html>
