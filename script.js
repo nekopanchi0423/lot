@@ -1,43 +1,43 @@
-var toddayMember = new Array();  // 本日の参加メンバーを入れる配列を新規作成
+var prefix_order_list = 'order_list_'; // 品目入力欄のname属性の接頭辞
 
 // 関数start
 $(function() {
-    $('#start').click(function()  {
-        var theamA = new Array();               // あたりの人たちを入れる配列を新規作成
-        var theamB = new Array();               // はずれの…〃
-        var hitNum = Number($('select[name="hit"]').val());   // あたりのくじの本数を変数[hitNum]に格納
-        var missNum = Number($('select[name="miss"]').val()); // はずれの…〃
-        var rand = 0;                           // ランダムの数字 初期値は0
+     // "品目の追加"ボタンを押した場合の処理
+    $('#btn_add').click(function () {
+        var i, new_btn, len_list, new_list;
 
-        todayMember = $('input[type="checkbox"]:checked').map(function(){
-            return $(this).val();                 // チェックのついたメンバーを配列に格納
-        }).get();
+        // 品目入力欄を追加
+        len_list = $('#order_list > li').length;
+        new_list = '<li><input type="text" size="40" name="' + prefix_order_list + len_list + '"></li>';
+        $('#order_list').append(new_list);
 
-        // 人数に対してくじが足りない時にアラートして処理を終了
-        if(todayMember.length > hitNum+missNum){
-            alert("くじの本数が足りないよ");
-            exit;
+        // 削除ボタンの一旦全消去し、配置し直す
+        $('#order_list input[type="button"]').remove();
+        len_list += 1;
+        for (i = 0; i < len_list; i += 1) {
+        new_btn = '<input type="button" value="削除">';
+        $('#order_list > li').eq(i).append(new_btn);
+        }
+    });
+
+    // 削除ボタンを押した場合の処理
+    $(document).on('click', '#order_list input[type="button"]', function (ev) {
+        var i, idx, len_list;
+
+        // 品目入力欄を削除
+        idx = $(ev.target).parent().index();
+        $('#order_list > li').eq(idx).remove();
+
+        len_list = $('#order_list > li').length;
+
+        // 入力欄がひとつになるなら、削除ボタンは不要なので消去
+        if (len_list === 1) {
+        $('#order_list input[type="button"]').remove();
         }
 
-        // 1人ずつ、あたりもしくははずれを決める
-        for(var i = 0; i < todayMember.length; i++ ){
-            if(hitNum == 0 && missNum > 0){       // あたりくじがなくなっていて、はずれが余っていればrand=2
-            rand = 2;
-            }else if(missNum == 0 && hitNum > 0){ // はずれくじがなくなっていて、あたりが余っていればrand=1
-            rand = 1;
-            }else{                                // どちらでもなければランダムで1か2
-            rand = Math.floor( Math.random() * 2 ) + 1;
-            }
-
-            if(rand == 1){
-            theamA.push(todayMember[i]);        // 1だったらあたりチームの配列に追加
-            hitNum += -1;                       // あたりくじを1本減らす
-            }else if(rand == 2){
-            theamB.push(todayMember[i]);        // 2だったらはずれチームの配列に追加
-            missNum += -1;                      // はずれくじを1本減らす
-            }
+        // 入力欄の番号を振り直す
+        for (i = 0; i < len_list; i += 1) {
+        $('#order_list > li').eq(i).children('input[type="text"]').attr('name', prefix_order_list + i);
         }
-        $("#result h3:first-child").text("あたり："+theamA); // あたりチームを表示
-        $("#result h3:last-child").text("はずれ："+theamB);  // はずれチームを表示
     });
 });
