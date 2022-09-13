@@ -1,0 +1,13 @@
+{% extends "drawing/base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>新規作成</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">作成</button>
+    </form>
+</div>
+
+{% endblock %}

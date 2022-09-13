@@ -1,0 +1,17 @@
+{% extends "drawing/base.html" %}
+
+{% block content %}
+<div class="wrapper">
+    <h1>くじで決めよう！</h1>
+    <button class="favorite styled" type="button">くじ引きスタート!</button>
+    <div class="area">
+      <h2>参加メンバーを入力してください：</h2>
+      <p><a class="btn btn-primary" href="{% url 'drawing:userdata_create' %}" role="button">新規作成</a></p>
+    </div>
+    {% for userdata in userdata_list %}
+      <h3>{{ userdata.name }}</h3>
+      <a class="text-danger" href="{% url 'drawing:userdata_delete' userdata.pk %}" role="button"><div style="text-align:right">削除</div></a>
+    {% endfor %}
+    <p class="bottom"></p>
+</div>
+{% endblock %}
